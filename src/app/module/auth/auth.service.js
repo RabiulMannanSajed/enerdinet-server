@@ -1,14 +1,18 @@
 import { User } from "../user/user.model.js";
+import bcrypt from "bcryptjs";
+
 export const LoginUser = async ({ email, password }) => {
   // here check the user present or not
 
   const user = await User.findOne({ email });
   console.log("user", user);
+
   if (!user) {
     throw new Error("User not found ");
   }
+  const isCorrectPassword = await bcrypt.compare(password, user.password);
 
-  if (password !== user.password) {
+  if (!isCorrectPassword) {
     throw new Error("password is not correct");
   }
 

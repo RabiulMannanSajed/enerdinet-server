@@ -16,7 +16,7 @@ app.use("/api/v1/enerdinet", router);
 const getController = (req, res) => {
   res.status(200).json({
     success: true,
-    message: "feriBazar is running ",
+    message: "Enegirnet is running ",
   });
 };
 

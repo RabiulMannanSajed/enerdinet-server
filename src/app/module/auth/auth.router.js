@@ -5,4 +5,4 @@ const route = Router();
 
 route.post("/login", createLoginUser);
 
-export const AuthRouter = route;
+export const AuthRoute = route;
