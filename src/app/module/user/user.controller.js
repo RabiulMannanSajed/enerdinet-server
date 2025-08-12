@@ -7,6 +7,7 @@ import {
 } from "./user.service.js";
 
 export const createUser = async (req, res) => {
+  console.log(req);
   console.log(req.body);
   try {
     const newUser = await createUserIntoDB(req.body);

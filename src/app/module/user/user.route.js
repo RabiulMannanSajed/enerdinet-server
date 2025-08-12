@@ -9,6 +9,8 @@ import {
 
 const route = Router();
 
+//! http://localhost:5000/api/v1/eneginet/users/create-user
+
 route.post("/create-user", createUser);
 
 route.get("/get-all-users", getAllUsers);
