@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import app from "./app.js";
 
 dotenv.config();
+
 async function main() {
   try {
     console.log("Connecting to MongoDB...");
