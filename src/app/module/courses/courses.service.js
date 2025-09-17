@@ -10,6 +10,11 @@ export const getAllCoursesFromDB = async () => {
   return await Course.find({ isDeleted: false });
 };
 
+// Get all courses (exclude soft-deleted)
+export const getAllDeletedCoursesFromDB = async () => {
+  return await Course.find({ isDeleted: true });
+};
+
 // Get single course
 export const getCourseByIdFromDB = async (id) => {
   return await Course.findOne({ _id: id, isDeleted: false });
@@ -23,4 +28,14 @@ export const updateCourseIntoDB = async (id, payload) => {
 // Soft delete course
 export const softDeleteCourseFromDB = async (id) => {
   return await Course.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+};
+
+// Restore (set isDeleted = false)
+export const restoreCourseFromDB = async (id) => {
+  console.log(id);
+  return await Course.findByIdAndUpdate(
+    id,
+    { isDeleted: false },
+    { new: true }
+  );
 };

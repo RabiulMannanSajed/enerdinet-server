@@ -18,10 +18,6 @@ const CourseChapterSchema = new Schema(
       type: String,
       required: true,
     },
-    isFinish: {
-      type: Boolean,
-      default: false,
-    },
   },
   { _id: false } // prevents auto-creating _id for subdocuments
 );
@@ -45,11 +41,7 @@ const CourseSchema = new Schema(
       type: String,
       required: true,
     },
-    coursesID: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+
     isDeleted: {
       type: Boolean,
       default: false,

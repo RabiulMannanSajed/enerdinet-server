@@ -1,13 +1,16 @@
 import {
   createCourseIntoDB,
   getAllCoursesFromDB,
+  getAllDeletedCoursesFromDB,
   getCourseByIdFromDB,
+  restoreCourseFromDB,
   softDeleteCourseFromDB,
   updateCourseIntoDB,
 } from "./courses.service.js";
 
 // Create
 export const createCourse = async (req, res) => {
+  console.log(req.body);
   try {
     const course = await createCourseIntoDB(req.body);
     res.status(201).json({ success: true, data: course });
@@ -20,6 +23,15 @@ export const createCourse = async (req, res) => {
 export const getAllCourses = async (req, res) => {
   try {
     const courses = await getAllCoursesFromDB();
+    res.json({ success: true, data: courses });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getAllDeleteCourses = async (req, res) => {
+  try {
+    const courses = await getAllDeletedCoursesFromDB();
     res.json({ success: true, data: courses });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -66,6 +78,25 @@ export const softDeleteCourse = async (req, res) => {
         .json({ success: false, message: "Course not found" });
     }
     res.json({ success: true, message: "Course deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Restore
+export const restoreCourse = async (req, res) => {
+  try {
+    const course = await restoreCourseFromDB(req.params.id);
+    if (!course) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Course not found" });
+    }
+    res.json({
+      success: true,
+      message: "Course restored successfully",
+      data: course,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

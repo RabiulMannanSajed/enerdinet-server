@@ -2,21 +2,27 @@ import { Router } from "express";
 import {
   createCourse,
   getAllCourses,
+  getAllDeleteCourses,
   getCourseById,
+  restoreCourse,
   softDeleteCourse,
   updateCourse,
 } from "./courses.collection.js";
 
-const router = Router();
+const route = Router();
 
-router.post("/", createCourse);
+route.post("/create-courses", createCourse);
 
-router.get("/", getAllCourses);
+route.get("/get-all-courses", getAllCourses);
 
-router.get("/:id", getCourseById);
+route.get("/get-all-deleted-courses", getAllDeleteCourses);
 
-router.patch("/:id", updateCourse);
+route.get("/:id", getCourseById);
 
-router.delete("/:id", softDeleteCourse);
+route.patch("/:id", updateCourse);
 
-export default router;
+route.delete("/:id", softDeleteCourse);
+
+route.patch("/:id/restore", restoreCourse);
+
+export const CourseRoute = route;

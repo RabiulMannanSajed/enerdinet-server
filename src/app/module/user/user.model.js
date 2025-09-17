@@ -15,6 +15,30 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
     },
+
+    myFinishedCourses: [
+      {
+        courseId: {
+          type: Schema.Types.ObjectId,
+          ref: "Course",
+          required: true,
+        },
+        chapters: [
+          {
+            chapterId: {
+              type: Schema.Types.ObjectId,
+              ref: "Chapter", // Assuming you have a Chapter model
+              required: true,
+            },
+            isFinished: {
+              type: Boolean,
+              default: false,
+            },
+          },
+        ],
+      },
+    ],
+
     role: {
       type: String,
       enum: ["user", "admin"],
