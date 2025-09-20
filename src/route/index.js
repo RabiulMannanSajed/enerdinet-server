@@ -2,6 +2,7 @@ import { Router } from "express";
 import { userRoute } from "../app/module/user/user.route.js";
 import { AuthRoute } from "../app/module/auth/auth.router.js";
 import { CourseRoute } from "../app/module/courses/courses.route.js";
+import { treadEnergyRoute } from "../app/module/createTrade/createTraderoute.js";
 
 const router = Router();
 
@@ -17,6 +18,10 @@ const moduleRouters = [
   {
     path: "/courses",
     route: CourseRoute,
+  },
+  {
+    path: "/treadEnergy",
+    route: treadEnergyRoute,
   },
 ];
 

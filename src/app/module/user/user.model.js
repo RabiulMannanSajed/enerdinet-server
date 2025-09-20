@@ -15,7 +15,9 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
     },
-
+    userImage: {
+      type: String,
+    },
     myFinishedCourses: [
       {
         courseId: {
