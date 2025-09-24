@@ -32,9 +32,6 @@ export const getUserByIdFromDb = async (id) => {
 };
 
 export const updateUserIntoDB = async (id, updates) => {
-  if (updates.password) {
-    updates.password = await bcrypt.hash(updates.password, 10);
-  }
   return await User.findByIdAndUpdate(id, updates, { new: true });
 };
 

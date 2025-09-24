@@ -17,7 +17,7 @@ route.get("/get-all-users", getAllUsers);
 
 route.get("/:id", getUserById);
 
-route.put("/:id", updateUser);
+route.patch("/:id", updateUser);
 
 route.delete("/:id", deleteUser);
 

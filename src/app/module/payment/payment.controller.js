@@ -1,10 +1,10 @@
-const {
+import {
   createPaymentService,
+  deletePaymentService,
   getAllPaymentsService,
   getPaymentByIdService,
   updatePaymentStatusService,
-  deletePaymentService,
-} = require("../services/payment.service");
+} from "./payment.service.js";
 
 // Create
 export const createPayment = async (req, res) => {
@@ -42,6 +42,7 @@ export const updatePaymentStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const updated = await updatePaymentStatusService(req.params.id, status);
+
     if (!updated) return res.status(404).json({ message: "Payment not found" });
     res.json(updated);
   } catch (err) {

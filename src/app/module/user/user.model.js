@@ -10,6 +10,9 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    userImage: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,
@@ -41,6 +44,19 @@ const UserSchema = new Schema(
       },
     ],
 
+    payments: [
+      {
+        PMethod: {
+          type: String,
+          enum: ["Bkash", "Rocket", "Nagad", "Card"],
+          required: true,
+        },
+        number: {
+          type: String, // or Number if you only expect digits
+          trim: true,
+        },
+      },
+    ],
     role: {
       type: String,
       enum: ["user", "admin"],

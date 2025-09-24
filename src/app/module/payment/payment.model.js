@@ -41,27 +41,22 @@ const PaymentSchema = new Schema(
 
     // 🔒 Encrypted fields
     energyAmount: {
-      type: String,
-      required: true,
+      type: Number,
       set: (val) => encrypt(val.toString()), // save encrypted
       get: (val) => Number(decrypt(val)), // return as Number
     },
     amount: {
-      type: String,
-      required: true,
+      type: Number,
       set: (val) => encrypt(val.toString()),
       get: (val) => Number(decrypt(val)),
     },
     paymentMethod: {
       type: String,
-      enum: ["BKASH", "NAGAD", "ROCKET", "CARD"],
-      required: true,
       set: (val) => encrypt(val),
       get: (val) => decrypt(val),
     },
     phoneNumber: {
       type: String,
-      required: true,
       set: (val) => encrypt(val),
       get: (val) => decrypt(val),
     },

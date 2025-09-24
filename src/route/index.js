@@ -3,6 +3,7 @@ import { userRoute } from "../app/module/user/user.route.js";
 import { AuthRoute } from "../app/module/auth/auth.router.js";
 import { CourseRoute } from "../app/module/courses/courses.route.js";
 import { treadEnergyRoute } from "../app/module/createTrade/createTraderoute.js";
+import { PaymentRoute } from "../app/module/payment/payment.route.js";
 
 const router = Router();
 
@@ -22,6 +23,10 @@ const moduleRouters = [
   {
     path: "/treadEnergy",
     route: treadEnergyRoute,
+  },
+  {
+    path: "/payment",
+    route: PaymentRoute,
   },
 ];
 
