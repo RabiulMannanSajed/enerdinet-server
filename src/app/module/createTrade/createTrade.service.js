@@ -7,12 +7,12 @@ export const createTreadEnergyIntoDB = async (data) => {
 
 // ✅ Get all trades
 export const getAllTreadEnergyFromDb = async () => {
-  return await TreadEnergy.find().populate("userId", "name email"); // populate user
+  return await TreadEnergy.find().populate("userId", "username email payments"); // populate user
 };
 
 // ✅ Get trade by ID
 export const getTreadEnergyByIdFromDb = async (id) => {
-  return await TreadEnergy.findById(id).populate("userId", "name email");
+  return await TreadEnergy.findById(id).populate("userId", "username email");
 };
 
 // ✅ Update trade

@@ -38,23 +38,30 @@ const PaymentSchema = new Schema(
   {
     buyerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     sellerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-
+    tradeId: {
+      type: Schema.Types.ObjectId,
+      ref: "TreadEnergy",
+      required: true,
+    },
     // 🔒 Encrypted fields
     energyAmount: {
-      type: Number,
+      type: String,
       set: (val) => encrypt(val.toString()), // save encrypted
       get: (val) => Number(decrypt(val)), // return as Number
     },
+
     amount: {
-      type: Number,
+      type: String,
       set: (val) => encrypt(val.toString()),
       get: (val) => Number(decrypt(val)),
     },
+
     paymentMethod: {
       type: String,
       set: (val) => encrypt(val),
       get: (val) => decrypt(val),
     },
+
     phoneNumber: {
       type: String,
       set: (val) => encrypt(val),

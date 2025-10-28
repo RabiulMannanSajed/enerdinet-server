@@ -1,8 +1,24 @@
+import { TreadEnergy } from "../createTrade/createTrade.model.js";
 import { Payment } from "./payment.model.js";
 
 // Create Payment
+
 export const createPaymentService = async (payload) => {
-  return await Payment.create(payload);
+  // 1. Create the payment
+  console.log(payload);
+  const payment = await Payment.create(payload);
+
+  // 2. Update TreadEnergy when payment is SUCCESS
+  if (payment.status === "SUCCESS" && payment.tradeId) {
+    console.log(payment.tradeId);
+    await TreadEnergy.findByIdAndUpdate(
+      payment.tradeId, // find by tradeId from payment
+      { status: "sold" }, // 👈 update status (you can set SUCCESS, COMPLETED, etc.)
+      { new: true }
+    );
+  }
+
+  return payment;
 };
 
 // Get all payments
