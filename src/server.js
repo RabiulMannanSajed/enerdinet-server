@@ -12,8 +12,10 @@ async function main() {
     );
     console.log("MongoDB connected successfully!");
 
-    app.listen(process.env.PORT, () => {
-      console.log(`App listening on port ${process.env.PORT}`);
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+      console.log(`App listening on port ${PORT}`);
     });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
