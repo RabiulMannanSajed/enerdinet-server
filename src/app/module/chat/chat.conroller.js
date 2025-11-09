@@ -1,3 +1,4 @@
+import { Chat } from "./chat.model.js";
 import {
   deleteChatService,
   deleteMessageService,
@@ -8,14 +9,8 @@ import {
 // ✅ Send message (create chat if not exist)
 export const sendMessage = async (req, res) => {
   try {
-    const { senderId, receiverId, message } = req.body;
-
-    if (!senderId || !receiverId || !message)
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing fields" });
-
-    const chat = await sendMessageService(senderId, receiverId, message);
+    const messageData = req.body;
+    const chat = await sendMessageService(messageData);
 
     res.status(200).json({
       success: true,
@@ -30,14 +25,7 @@ export const sendMessage = async (req, res) => {
 // ✅ Get chat between user and admin
 export const getChat = async (req, res) => {
   try {
-    const { userId, adminId } = req.params;
-
-    const chat = await getChatService(userId, adminId);
-    if (!chat)
-      return res
-        .status(404)
-        .json({ success: false, message: "Chat not found" });
-
+    const chat = await getChatService();
     res.status(200).json({ success: true, data: chat });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -74,5 +62,28 @@ export const deleteChat = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const markAsRead = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updatedMessage = await Chat.findByIdAndUpdate(
+      id,
+      { isRead: true },
+      { new: true }
+    );
+
+    if (!updatedMessage) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Message not found" });
+    }
+
+    res.status(200).json({ success: true, data: updatedMessage });
+  } catch (error) {
+    console.error("Error updating message:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };

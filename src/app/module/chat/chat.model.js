@@ -1,42 +1,22 @@
 import { model, Schema } from "mongoose";
 
-const messageSchema = Schema(
-  {
-    senderId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    receiverId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    message: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    isRead: {
-      type: Boolean,
-      default: false,
-    },
+const chatSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
-
-const chatSchema = new Schema(
-  {
-    participants: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-    ],
-    messages: [messageSchema],
+  name: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  message: {
+    type: String,
+    required: true,
+  },
+  isRead: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 export const Chat = model("Chat", chatSchema);

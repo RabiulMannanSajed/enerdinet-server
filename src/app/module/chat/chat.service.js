@@ -1,28 +1,13 @@
 import { Chat } from "./chat.model.js";
 
 // ✅ Create or send a message
-export const sendMessageService = async (senderId, receiverId, message) => {
-  let chat = await Chat.findOne({
-    participants: { $all: [senderId, receiverId] },
-  });
-
-  if (!chat) {
-    chat = new Chat({ participants: [senderId, receiverId], messages: [] });
-  }
-
-  chat.messages.push({ senderId, receiverId, message });
-  await chat.save();
-
-  return chat;
+export const sendMessageService = async (messageData) => {
+  return await Chat.create(messageData);
 };
 
 // ✅ Get chat between two users
-export const getChatService = async (userId, adminId) => {
-  const chat = await Chat.findOne({
-    participants: { $all: [userId, adminId] },
-  }).populate("messages.senderId messages.receiverId", "name email");
-
-  return chat;
+export const getChatService = async () => {
+  return await Chat.find();
 };
 
 // ✅ Delete a specific message

@@ -7,7 +7,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+// https://enerdinet-server.onrender.com/api/v1/energinet/treadEnergy/get-all-treads
 // Routes
 app.use("/api/v1/energinet", router);
 //
